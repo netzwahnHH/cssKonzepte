@@ -1,0 +1,315 @@
+<!doctype html>
+<html lang="en">
+
+	<head>
+		<meta charset="utf-8">
+
+		<title>CSS Konzepte</title>
+
+		<meta name="description" content="&Uuml;bersicht verschiedener CSS-Konzepte und Ans&auml;tze">
+		<meta name="author" content="Torsten Lemser">
+
+		<meta name="apple-mobile-web-app-capable" content="yes" />
+		<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+		<link rel="stylesheet" href="reveal.js/css/reveal.min.css">
+		<link rel="stylesheet" href="reveal.js/css/theme/default.css" id="theme">
+
+		<!-- For syntax highlighting -->
+		<link rel="stylesheet" href="reveal.js/lib/css/zenburn.css">
+
+		<!-- If the query includes 'print-pdf', use the PDF print sheet -->
+		<script>
+			document.write( '<link rel="stylesheet" href="reveal.js/css/print/' + ( window.location.search.match( /print-pdf/gi ) ? 'pdf' : 'paper' ) + '.css" type="text/css" media="print">' );
+		</script>
+
+		<!--[if lt IE 9]>
+		<script src="reveal.js/lib/js/html5shiv.js"></script>
+		<![endif]-->
+	</head>
+
+	<body>
+
+		<div class="reveal">
+			<div class="slides">
+				<section>
+					<h1>CSS Konzepte</h1>
+					<h3>Verschiedene Ans&auml;tze und Konzepte zur Gestaltung von CSS</h3>
+				</section>
+
+				<section>
+					<h2>&Uuml;bersicht</h2>
+					<ul>
+						<li>Status Quo</li>
+						<li>OOCSS</li>
+						<li>BEM</li>
+						<li>SMACSS</li>
+					</ul>
+				</section>
+				<section>
+					<section>
+						<h2>Status Quo</h2>
+						<ul>
+							<li>Schriftgrößen</li>
+							<li>Innenabstände</li>
+							<li>Außenabstände</li>
+						</ul>
+					</section>
+					<section>
+						<h2>'font-size' - 209 matches in 'css'</h2>
+					</section>
+					<section>
+						<h2>'padding' - 705 matches in 'css'</h2>
+					</section>
+					<section>
+						<h2>'margin' - 1090 matches in 'css'</h2>
+					</section>
+				</section>
+				<section>
+					<section>
+						<h2>OOCSS</h2>
+						<p>Objektorientiertes CSS <br/>
+						<a href="https://github.com/stubbornella/oocss" title="OOCSS on github">https://github.com/stubbornella/oocss</a></p>
+						<small>Konzipiert von <a href="http://stubbornella.org/content/">Nicole Sullivan</a> / <a href="http://twitter.com/stubbornella">@stubbornella</a></small>
+					</section>
+					<section>
+						<h2>OOCSS-Ansatz: Trennung von Objekt und Aussehen</h2>
+						<p><strong>Objekt:</strong> Das Objekt beschreibt die Struktur eines Modules, wie es von der Codestruktur her mehrfach auf einer Webseite vorkommen kann.</p>
+						<p><strong>Aussehen:</strong> Über die entsprechende(n) Klasse(n) wird das Aussehen des Modules in seinem jeweiligen Kontext gesteuert.</p>
+					</section>
+					<section>
+						<h2>Module</h2>
+						<pre><code data-trim contenteditable>
+					<div class="mod">
+ <div class="inner">
+   <div class="headline"><h2>Block Head</h2></div>
+   <div class="body">Block Body</div>
+   <div class="footer">Block Foot</div>
+ </div>
+</div>
+							</code>
+						</pre>
+						<p>Styling in CSS nur sofern es seitenweiten Definitionen entspricht</p>
+						<pre><code data-trim contenteditable>
+h2 { 
+ color: #000;
+ font-size: 1.4em;
+}
+.mod { 
+ margin: 12px;
+}
+							</code>
+						</pre>
+					</section>
+					<section>
+						<h2>Styling eines Modules</h2>
+						<pre>
+						<code data-trim contenteditable>
+<div class="mod news">
+ <div class="inner">
+  <div class="headline"><h2>Block Head</h2></div>
+  <div class="body">Block Body</div>
+  <div class="footer">Block Foot</div>
+ </div>
+</div>
+							</code>
+						</pre>
+							<p>Styling durch Knüpfung an die inhaltsbezogene Klasse</p>
+							<pre>
+							<code data-trim contenteditable>
+.news h2 { 
+ color: #fff;
+}
+.news .body { 
+ font-size: 12px;
+}
+							</code>
+						</pre>
+					</section>
+					<section>
+						<h2>Media Modul</h2>
+						<img src="img/mediaModule.png" alt="">
+						<pre>
+						<code data-trim contenteditable>
+						<div class="media attribution">
+ <a href="" class="img">
+  <img src=".../sushi.png" alt="Shushi" />
+ </a>
+ <div class="body">
+  <div class="headline"></div>
+  <div class="subheadline"></div>
+  <div class="txt"></div>
+ </div>
+</div>
+							</code>
+						</pre>
+					</section>
+					<section>
+						<h2>Media Modul - CCS Part</h2>
+						<img src="img/mediaModule.png" alt="">
+							<p>Styling durch Knüpfung an die inhaltsbezogene Klasse</p>
+							<pre>
+								<code data-trim contenteditable>
+.media {
+ margin: 10px;
+}
+.media .body {
+ overflow: hidden;
+ _overflow: visible; 
+ zoom:1;
+}
+.media .img {
+ float: left; 
+ margin-right: 10px;
+}
+.media .img img {
+ display: block;
+}
+.media .imgExt {
+ float: right; 
+ margin-left: 10px;
+}
+							</code>
+							</pre>
+					</section>
+					<section>
+					<h2>Tipps zur Nutzung von OOCSS</h2>
+					<ul>
+						<li>Vermeidung von IDs als inhaltlichem Selektor</li>
+						<li>Keine Deklarationen die an den Elementbaum geknüpft sind, wie body #content .class </li>
+						<li>Keine Verknüpfung von Elementen mit Klassendeklarationen, z.B. div.class oder p.class</li>
+						<li>Minimierung von CSS-Selektoren</li>
+					</section>
+				</section>
+				<section>
+					<section>
+						<h2>BEM</h2>
+						<p>Block, Element, Modifier<br/>
+						<a href="http://bem.info" title="Technology for creating web applications">http://bem.info/</a></p>
+						<small>Konzipiert von <a href="http://www.yandex.com">Yandex</a></small>
+					</section>
+					<section>
+						<h2>BEM-Ansatz: Konzeption beschreibender CSS-Klassen</h2>
+						<p><strong>Block:</strong> Block gibt den Rahmen vor in dem sich Elemente befinden, z.B. ein Formular.</p>
+						<p><strong>Element:</strong> Innnerhalb eines Blocks befindliche Elemente, z.B. Eingabefelder.</p>
+						<p><strong>Modus:</strong> Beschreibung des Zustands eines Elements, z.B. Aktiv, Sichtbar, Nicht sichtbar</p>
+					</section>
+					<section>
+						<h2>Blöcke</h2>
+						<p>Aus der Benennung eines Blocks soll hervorgehen was sich innerhalb dieses Blocks befindet.</p>
+						<p>.site-search {}</p>
+					</section>
+					<section>
+						<h2>Elemente</h2>
+						<p>Elemente sind Bestandteile des Blocks, die diesen mit Funktionen und Inhalt füllen. Nimmt man eines dieser Elemente aus dem Block heraus, so verliert auch der Block seine Funktionalität. z.B. das Element "input field" aus dem Block "Form".</p>
+						<p>.site-search__field {}</p>
+					</section>
+					<section>
+						<h2>Modifier</h2>
+						<p>Modifier sind Klassen, die eine modifizierte Version eines bereits vorhandenen Block beschreiben.</p>
+						<p>.site-search--full {}</p>
+					</section>
+				</section>
+				<section>
+					<section>
+						<h2>SMACSS</h2>
+						<p>Scalable and Modular Architecture for CSS<br/>
+						<a href="http://smacss.com/" title="Scalable and Modular Architecture for CSS">http://smacss.com/</a></p>
+						<small>Konzipiert von <a href="http://snook.ca/">Jonathan Snook</a></small>
+					</section>
+					<section>
+						<h2>SMACSS-Ansatz: Kategorisierung von CSS</h2>
+						<p>Kategorisierung schärft den Blick auf vorhandene Pattern und erleichtert das Anlegen neuer Patterns.</p>
+						<p><strong>Base:</strong> Base Styles beinhalten grundlegende Stylings einer Webseite.</p>
+						<p><strong>Layout:</strong> Styles die das Grundgerüst einer Seite definieren, z.B. footer, body, header</p>
+						<p><strong>Module:</strong> Module befinden sich innerhalb der Layout-Elemente.</p>
+						<p><strong>Status:</strong> Status Stylings definieren den Status eines Elements und überschreibt das eigenliche Verhalten eines Modules.</p>
+						<p><strong>Theme:</strong> Themes beschreiben das Aussehen eines Modules.</p>
+					</section>
+					<section>
+						<h2>Base</h2>
+						<p>Unter Base kategorisierte Stylings beinhalten die default-Angaben einer Seite, wie Schriftgrößen, Standardfarben, Resets.</p>
+					</section>
+					<section>
+						<h2>Layout</h2>
+						<p>Layouts beinhalten das strukturierende Grundgerüst der Seite, wie die Definition des Footers oder des Headers</p>
+						<p>Neben dem Grundgerüst werden in diesem Bereich auch strukturierende Stylings via Kaskadierung angelegt. z.B. .fixed .header</p> 
+					</section>
+					<section>
+						<h2>Module</h2>
+						<p>Module sind das Fleisch auf den Rippen des Grundgerüsts. Hier werden die einzelnen Stylings für z.B. Menüs, Formulare oder Boxen definiert.</p>
+					</section>
+					<section>
+						<h2>Status</h2>
+						<p>Unter die Kategorie Status fallen Stylings, die in Abhängigkeit zu einem bestimmten Ereignis generiert werden und dabei Module beeinflussen.</p>
+						<p>Beispiele: Fehler- oder Erfolgsmeldungen. Via Javascript veränderte Sichtbarkeiten.</p>
+					</section>
+					<section>
+						<h2>Themes</h2>
+						<p>Themes stylen Module in Abhängigkeit zu deren Einsatz. Eine Box kann z.B. mehrfach auf einer Seite eingesetzt werden. Im Fall A würde via Theme-Klasse ein grauer Rahmen gezogen, im Fall B wird diese Border blau.</p>
+					</section>
+				</section>
+				<section>
+					<section>
+						<h2>Fazit</h2>
+						<ul>
+							<li>Modularisierung unterstützt dabei Redundanzen zu vermeiden.</li>
+							<li>Einheitlicher Code benötigt abgestimmte Code- und Namens-Konventionen.</li>
+							<li>Beschreibende Klassen und IDs, wie margin12, fontsize15,..., sind zu vermeiden.</li>
+							<li>Elemente von Außen nach Innen stylen</li>
+						</ul>
+					</section>
+				</section>
+				<section>
+					<section>
+						<h2>Credits</h2>
+						<ul>
+							<li>Nicole Sullivan / @stubbornella:<br /><a href="https://github.com/stubbornella/oocss">https://github.com/stubbornella/oocss</a></li>
+							<li>Yandex:<br /><a href="http://bem.info/">http://bem.info</a></li>
+							<li>Jonathan Snook / @snookca:<br /><a href="http://snook.ca">http://snook.ca</a> / <a href="http://smacss.com">http://smacss.com</a></li>
+							<li>Harry Roberts / @csswizardry:<br /><a href="http://csswizardry.com">http://csswizardry.com</a></li>
+							<li>Nicolas Gallagher / @necolas:<br ><a href="http://nicolasgallagher.com">http://nicolasgallagher.com</a></li>
+							<li>Made with reveal.js by Hakim El Hattab:<br /><a href="https://github.com/hakimel/reveal.js/">https://github.com/hakimel/reveal.js</a></li>
+						</ul>	
+					</section>
+				</section>
+			</div>
+		</div>
+
+		<script src="reveal.js/lib/js/head.min.js"></script>
+		<script src="reveal.js/js/reveal.min.js"></script>
+
+		<script>
+
+			// Full list of configuration options available here:
+			// https://github.com/hakimel/reveal.js#configuration
+			Reveal.initialize({
+				controls: true,
+				progress: true,
+				history: true,
+				center: true,
+
+				theme: Reveal.getQueryHash().theme, // available themes are in /css/theme
+				transition: Reveal.getQueryHash().transition || 'default', // default/cube/page/concave/zoom/linear/fade/none
+
+				// Parallax scrolling
+				// parallaxBackgroundImage: 'https://s3.amazonaws.com/hakim-static/reveal-js/reveal-parallax-1.jpg',
+				// parallaxBackgroundSize: '2100px 900px',
+
+				// Optional libraries used to extend on reveal.js
+				dependencies: [
+					{ src: 'reveal.js/lib/js/classList.js', condition: function() { return !document.body.classList; } },
+					{ src: 'reveal.js/plugin/markdown/marked.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+					{ src: 'reveal.js/plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+					{ src: 'reveal.js/plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } },
+					{ src: 'reveal.js/plugin/zoom-js/zoom.js', async: true, condition: function() { return !!document.body.classList; } },
+					{ src: 'reveal.js/plugin/notes/notes.js', async: true, condition: function() { return !!document.body.classList; } }
+				]
+			});
+
+		</script>
+
+	</body>
+</html>
